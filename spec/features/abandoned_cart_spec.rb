@@ -14,6 +14,7 @@ feature "Abandoned Cart", :js do
 
   scenario "For a guest user" do
     add_product_to_cart
+    expect(SpreeMailchimpEcommerce::CreateOrderCartJob).to_not have_been_enqueued
     expect(current_path).to eq("/checkout/registration")
 
     fill_in "order_email", with: "spree@example.com"
